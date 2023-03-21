@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp20i46wuu6f"]
+
+[ext_resource type="Script" path="res://addons/ChatGPT/ExecuteWindow.gd" id="1_lhjhs"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_a777b"]
+number_color = Color(0.576471, 0.815686, 0.72549, 1)
+symbol_color = Color(0.231373, 0.447059, 0.501961, 1)
+function_color = Color(0.341176, 0.698039, 1, 1)
+member_variable_color = Color(0.52549, 0.623529, 0.713726, 1)
+keyword_colors = {
+"@tool": Color(0.462745, 0.352941, 0.27451, 1),
+"extends": Color(0.466667, 0.254902, 0.301961, 1)
+}
+
+[sub_resource type="InputEventKey" id="InputEventKey_eb4ry"]
+device = -1
+ctrl_pressed = true
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_153sv"]
+events = [SubResource("InputEventKey_eb4ry")]
+
+[node name="Panel" type="PopupPanel"]
+initial_position = 2
+title = "ChatGPT Response"
+size = Vector2i(1280, 720)
+visible = true
+unresizable = false
+borderless = false
+script = ExtResource("1_lhjhs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 1276.0
+offset_bottom = 716.0
+
+[node name="Response" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Response from ChatGPT. This will execute code in \"callMe\" function"
+
+[node name="CodeEdit" type="CodeEdit" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+syntax_highlighter = SubResource("CodeHighlighter_a777b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Execute" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_153sv")
+text = "Execute"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Execute" to="." method="_on_execute_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]

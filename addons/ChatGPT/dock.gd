@@ -2,6 +2,7 @@
 extends Control
 
 const apiKeyName = "chat_gpt/api_key"
+var lastCode = "# No response yet. Please submit your query first"
 
 func _ready():
 	if !ProjectSettings.has_setting(apiKeyName):
@@ -26,6 +27,7 @@ func _on_submit_pressed():
 	sendQuery(query)
 	
 func sendQuery(query: String):
+	print("ChatGPT: Querying AI")
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._http_request_completed)
@@ -37,19 +39,38 @@ func sendQuery(query: String):
 		push_error("An error occurred in the HTTP request.")
 
 func _http_request_completed(result, response_code, headers, body):
+	print("ChatGPT: Parsing reply")
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
 
 	var code = response.choices[0].message.content
-	#print(code)
+	var source = "@tool\n%s" % code
+	lastCode = source
+	if %ExecuteImmediately.button_pressed:
+		executeCode(source)
+	else:
+		showCodePopup(source)
+	
+func showCodePopup(code: String) -> void:
+	var popup = load("res://addons/ChatGPT/ExecuteWindow.tscn").instantiate()
+	add_child(popup)
+	popup.offerCode(code)
+	popup.execute_code.connect(self.executeCode)
+	popup.popup_centered()
+	
+func executeCode(code: String) -> void:
+	lastCode = code
 	var exec = GDScript.new()
-	exec.source_code = "@tool\n%s" % code
+	exec.source_code = code
 	exec.reload()
 	print("ChatGPT: Executing code")
 	print_verbose(code)
-	print(code)
 	%Executer.set_script(exec)
-	%Executer.callMe()
+	if "callMe" in %Executer:
+		%Executer.callMe()
 	print("ChatGPT: Done")
 
+
+func _on_open_last_pressed():
+	showCodePopup(lastCode)
