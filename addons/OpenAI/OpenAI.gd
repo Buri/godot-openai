@@ -5,7 +5,7 @@ var dock
 
 func _enter_tree():
 	dock = load("res://addons/OpenAI/dock.tscn").instantiate()
-	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BL, dock)
+	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BR, dock)
 	dock.find_child("Reload").connect("pressed", self.reload)
 
 func _exit_tree():
