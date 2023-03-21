@@ -4,10 +4,6 @@ extends Control
 const apiKeyName = "open_ai/api_key"
 var lastCode = "# No response yet. Please submit your query first"
 
-func _ready():
-	if !ProjectSettings.has_setting(apiKeyName):
-		ProjectSettings.set_initial_value(apiKeyName, '')
-	
 func constructAIQuery() -> String:
 	var input = %Query.text
 	var query = """Write a Godot Engine script.

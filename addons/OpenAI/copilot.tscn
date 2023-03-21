@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b21nedfwxlhnq"]
+[gd_scene load_steps=2 format=3 uid="uid://b21nedfwxlhnq"]
 
 [ext_resource type="Script" path="res://addons/OpenAI/copilot.gd" id="1_57nfq"]
-[ext_resource type="PackedScene" uid="uid://ba0cubhdnaeph" path="res://addons/OpenAI/QueryBlock.tscn" id="2_pddqd"]
 
 [node name="Copilot" type="PopupPanel"]
 initial_position = 2
@@ -18,17 +17,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 1276.0
+offset_bottom = 716.0
 grow_horizontal = 2
 grow_vertical = 2
+split_offset = -450
 
 [node name="CodeEdit" type="CodeEdit" parent="HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+[node name="Prompts" type="VBoxContainer" parent="HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="QueryBlock" parent="HSplitContainer/VBoxContainer" instance=ExtResource("2_pddqd")]
+[node name="PaddingFiller" type="Container" parent="HSplitContainer/Prompts"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
