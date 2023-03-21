@@ -1,7 +1,7 @@
 @tool
 extends Control
 
-const apiKeyName = "chat_gpt/api_key"
+const apiKeyName = "open_ai/api_key"
 var lastCode = "# No response yet. Please submit your query first"
 
 func _ready():
@@ -27,7 +27,7 @@ func _on_submit_pressed():
 	sendQuery(query)
 	
 func sendQuery(query: String):
-	print("ChatGPT: Querying AI")
+	print("OpenAI: Querying AI")
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._http_request_completed)
@@ -39,7 +39,7 @@ func sendQuery(query: String):
 		push_error("An error occurred in the HTTP request.")
 
 func _http_request_completed(result, response_code, headers, body):
-	print("ChatGPT: Parsing reply")
+	print("OpenAI: Parsing reply")
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
@@ -53,7 +53,7 @@ func _http_request_completed(result, response_code, headers, body):
 		showCodePopup(source)
 	
 func showCodePopup(code: String) -> void:
-	var popup = load("res://addons/ChatGPT/ExecuteWindow.tscn").instantiate()
+	var popup = load("res://addons/OpenAI/ExecuteWindow.tscn").instantiate()
 	add_child(popup)
 	popup.offerCode(code)
 	popup.execute_code.connect(self.executeCode)
@@ -64,12 +64,12 @@ func executeCode(code: String) -> void:
 	var exec = GDScript.new()
 	exec.source_code = code
 	exec.reload()
-	print("ChatGPT: Executing code")
+	print("OpenAI: Executing code")
 	print_verbose(code)
 	%Executer.set_script(exec)
 	if "callMe" in %Executer:
 		%Executer.callMe()
-	print("ChatGPT: Done")
+	print("OpenAI: Done")
 
 
 func _on_open_last_pressed():

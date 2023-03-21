@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp20i46wuu6f"]
+[gd_scene load_steps=5 format=3 uid="uid://wmrneiumv7vc"]
 
-[ext_resource type="Script" path="res://addons/ChatGPT/ExecuteWindow.gd" id="1_lhjhs"]
+[ext_resource type="Script" path="res://addons/OpenAI/ExecuteWindow.gd" id="1_ls01p"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_a777b"]
 number_color = Color(0.576471, 0.815686, 0.72549, 1)
@@ -22,12 +22,12 @@ events = [SubResource("InputEventKey_eb4ry")]
 
 [node name="Panel" type="PopupPanel"]
 initial_position = 2
-title = "ChatGPT Response"
+title = "OpenAI Response"
 size = Vector2i(1280, 720)
 visible = true
 unresizable = false
 borderless = false
-script = ExtResource("1_lhjhs")
+script = ExtResource("1_ls01p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_left = 4.0
@@ -37,7 +37,7 @@ offset_bottom = 716.0
 
 [node name="Response" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Response from ChatGPT. This will execute code in \"callMe\" function"
+text = "Response from OpenAI. This will execute code in \"callMe\" function"
 
 [node name="CodeEdit" type="CodeEdit" parent="VBoxContainer"]
 unique_name_in_owner = true
