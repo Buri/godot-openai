@@ -74,3 +74,9 @@ func executeCode(code: String) -> void:
 
 func _on_open_last_pressed():
 	showCodePopup(lastCode)
+
+
+func _on_code_assist_pressed():
+	var codeAssist = load("res://addons/OpenAI/copilot.tscn").instantiate()
+	add_child(codeAssist)
+	codeAssist.show()

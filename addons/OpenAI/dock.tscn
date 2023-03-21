@@ -43,6 +43,10 @@ text = "Run immediately"
 layout_mode = 2
 text = "Open last"
 
+[node name="CodeAssist" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Open Copilot"
+
 [node name="Reload" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Reload plugin"
@@ -52,3 +56,4 @@ unique_name_in_owner = true
 
 [connection signal="pressed" from="VBoxContainer/Submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="VBoxContainer/OpenLast" to="." method="_on_open_last_pressed"]
+[connection signal="pressed" from="VBoxContainer/CodeAssist" to="." method="_on_code_assist_pressed"]
