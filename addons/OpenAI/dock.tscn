@@ -13,42 +13,55 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ugsn2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
-[node name="Query" type="TextEdit" parent="VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Query" type="TextEdit" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = SubResource("Theme_fjagg")
 text = "Print \"Hello World\""
 placeholder_text = "Enter query"
-scroll_fit_content_height = true
+wrap_mode = 1
+highlight_current_line = true
+draw_control_chars = true
+draw_tabs = true
 
-[node name="Submit" type="Button" parent="VBoxContainer"]
+[node name="Submit" type="Button" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Submit"
 
-[node name="ExecuteImmediately" type="CheckButton" parent="VBoxContainer"]
+[node name="ExecuteImmediately" type="CheckButton" parent="ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Run immediately"
 
-[node name="OpenLast" type="Button" parent="VBoxContainer"]
+[node name="OpenLast" type="Button" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Open last"
 
-[node name="Reload" type="Button" parent="VBoxContainer"]
+[node name="Reload" type="Button" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Reload plugin"
 
 [node name="Executer" type="Node" parent="."]
 unique_name_in_owner = true
 
-[connection signal="pressed" from="VBoxContainer/Submit" to="." method="_on_submit_pressed"]
-[connection signal="pressed" from="VBoxContainer/OpenLast" to="." method="_on_open_last_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/OpenLast" to="." method="_on_open_last_pressed"]
